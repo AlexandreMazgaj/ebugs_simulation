@@ -12,7 +12,6 @@ from std_msgs.msg import Header, ColorRGBA
 
 
 def fromEbugsToRviz(command):
-    rospy.loginfo(rospy.get_caller_id()+ " receiving the command")
     marker_publisher = rospy.Publisher('visualization_marker', Marker)
     all_the_markers = []
 
@@ -26,7 +25,7 @@ def fromEbugsToRviz(command):
                         pose=Pose(Point(ebugs_data[i].x, ebugs_data[i].y, 0), Quaternion(0, 0, 0, 1)),
                         scale=Vector3(0.6, 0.6, 0.6),
                         header=Header(frame_id='base_link'),
-                        color=ColorRGBA(0.0, 1.0, 0.0, 0.3))
+                        color=ColorRGBA(0.0, 1.0, 0.0, 0.8))
         all_the_markers.append(marker)
 
     for i in range(num_of_ebugs):
