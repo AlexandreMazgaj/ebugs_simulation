@@ -1,0 +1,21 @@
+Linked: (/home/alexandre/ebugs_ws/devel/.private/ebugs_message/lib/pkgconfig/ebugs_message.pc, /home/alexandre/ebugs_ws/devel/lib/pkgconfig/ebugs_message.pc)
+Symlinking /home/alexandre/ebugs_ws/devel/lib/python2.7/dist-packages/ebugs_message/__init__.py
+Symlinking /home/alexandre/ebugs_ws/devel/lib/python2.7/dist-packages/ebugs_message/msg/_Command.py
+Symlinking /home/alexandre/ebugs_ws/devel/lib/python2.7/dist-packages/ebugs_message/msg/_Force.py
+Symlinking /home/alexandre/ebugs_ws/devel/lib/python2.7/dist-packages/ebugs_message/msg/_Vector.py
+Symlinking /home/alexandre/ebugs_ws/devel/lib/python2.7/dist-packages/ebugs_message/msg/__init__.py
+Symlinking /home/alexandre/ebugs_ws/devel/lib/python2.7/dist-packages/ebugs_message/msg/_Position.py
+Linked: (/home/alexandre/ebugs_ws/devel/.private/ebugs_message/share/ebugs_message/cmake/ebugs_messageConfig-version.cmake, /home/alexandre/ebugs_ws/devel/share/ebugs_message/cmake/ebugs_messageConfig-version.cmake)
+Symlinking /home/alexandre/ebugs_ws/devel/share/ebugs_message/cmake/ebugs_message-msg-extras.cmake
+Linked: (/home/alexandre/ebugs_ws/devel/.private/ebugs_message/share/ebugs_message/cmake/ebugs_messageConfig.cmake, /home/alexandre/ebugs_ws/devel/share/ebugs_message/cmake/ebugs_messageConfig.cmake)
+Symlinking /home/alexandre/ebugs_ws/devel/share/ebugs_message/cmake/ebugs_message-msg-paths.cmake
+Symlinking /home/alexandre/ebugs_ws/devel/share/gennodejs/ros/ebugs_message/_index.js
+Symlinking /home/alexandre/ebugs_ws/devel/share/gennodejs/ros/ebugs_message/msg/Position.js
+Symlinking /home/alexandre/ebugs_ws/devel/share/gennodejs/ros/ebugs_message/msg/Command.js
+Symlinking /home/alexandre/ebugs_ws/devel/share/gennodejs/ros/ebugs_message/msg/_index.js
+Symlinking /home/alexandre/ebugs_ws/devel/share/gennodejs/ros/ebugs_message/msg/Vector.js
+Symlinking /home/alexandre/ebugs_ws/devel/share/gennodejs/ros/ebugs_message/msg/Force.js
+Symlinking /home/alexandre/ebugs_ws/devel/include/ebugs_message/Command.h
+Symlinking /home/alexandre/ebugs_ws/devel/include/ebugs_message/Position.h
+Symlinking /home/alexandre/ebugs_ws/devel/include/ebugs_message/Vector.h
+Symlinking /home/alexandre/ebugs_ws/devel/include/ebugs_message/Force.h

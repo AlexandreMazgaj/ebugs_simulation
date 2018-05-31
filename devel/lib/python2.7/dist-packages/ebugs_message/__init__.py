@@ -1,0 +1,1 @@
+/home/alexandre/ebugs_ws/devel/.private/ebugs_message/lib/python2.7/dist-packages/ebugs_message/__init__.py

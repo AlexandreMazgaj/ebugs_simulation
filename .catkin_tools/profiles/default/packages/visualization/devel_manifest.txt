@@ -1,0 +1,4 @@
+visualization
+/home/alexandre/ebugs_ws/devel/.private/visualization/lib/pkgconfig/visualization.pc /home/alexandre/ebugs_ws/devel/lib/pkgconfig/visualization.pc
+/home/alexandre/ebugs_ws/devel/.private/visualization/share/visualization/cmake/visualizationConfig.cmake /home/alexandre/ebugs_ws/devel/share/visualization/cmake/visualizationConfig.cmake
+/home/alexandre/ebugs_ws/devel/.private/visualization/share/visualization/cmake/visualizationConfig-version.cmake /home/alexandre/ebugs_ws/devel/share/visualization/cmake/visualizationConfig-version.cmake

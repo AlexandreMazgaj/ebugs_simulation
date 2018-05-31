@@ -1,0 +1,8 @@
+prefix=/home/alexandre/ebugs_ws/install
+
+Name: ebugs_message
+Description: Description of ebugs_message
+Version: 0.0.0
+Cflags: -I/home/alexandre/ebugs_ws/install/include
+Libs: -L/home/alexandre/ebugs_ws/install/lib 
+Requires: message_runtime

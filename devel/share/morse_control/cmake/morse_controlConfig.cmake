@@ -1,0 +1,1 @@
+/home/alexandre/ebugs_ws/devel/.private/morse_control/share/morse_control/cmake/morse_controlConfig.cmake

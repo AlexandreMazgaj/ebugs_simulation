@@ -1,0 +1,4 @@
+morse_control
+/home/alexandre/ebugs_ws/devel/.private/morse_control/lib/pkgconfig/morse_control.pc /home/alexandre/ebugs_ws/devel/lib/pkgconfig/morse_control.pc
+/home/alexandre/ebugs_ws/devel/.private/morse_control/share/morse_control/cmake/morse_controlConfig.cmake /home/alexandre/ebugs_ws/devel/share/morse_control/cmake/morse_controlConfig.cmake
+/home/alexandre/ebugs_ws/devel/.private/morse_control/share/morse_control/cmake/morse_controlConfig-version.cmake /home/alexandre/ebugs_ws/devel/share/morse_control/cmake/morse_controlConfig-version.cmake
