@@ -97,7 +97,7 @@ def morsePotentialFunction(command):
 
     num_of_ebugs = len(sorted_ebugs)
 
-    rate = rospy.Rate(0.5)
+    rate = rospy.Rate(5)
 
 
     while not rospy.is_shutdown():
@@ -212,8 +212,8 @@ def morsePotentialFunction(command):
             ang_vel_rwheel = right_wheel_speed/wheel_radius
             ang_vel_lwheel = left_wheel_speed/wheel_radius
 
-            ang_vel_rwheel /= 1000
-            ang_vel_lwheel /= 1000
+            ang_vel_rwheel /= 10000.0
+            ang_vel_lwheel /= 10000.0
 
             # then we compute the new position and the new angle of each robot
             delta_x = (wheel_radius/2)*(ang_vel_rwheel*math.cos(ebugs_data[i].angle) + ang_vel_lwheel*math.cos(ebugs_data[i].angle))
