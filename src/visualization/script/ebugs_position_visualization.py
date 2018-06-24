@@ -23,7 +23,7 @@ def fromEbugsToRviz(command):
                         id=i,
                         lifetime=rospy.Duration(3),
                         pose=Pose(Point(ebugs_data[i].x, ebugs_data[i].y, 0), Quaternion(0, 0, 0, 0)),
-                        scale=Vector3(0.6, 0.6, 0.5),
+                        scale=Vector3(1.5, 1.5, 0.2),
                         header=Header(frame_id='base_link'),
                         color=ColorRGBA(1.0, 0.0, 0.0, 1.0))
         all_the_markers.append(marker)

@@ -9,10 +9,10 @@ from ebugs_message.msg import Position
 from ebugs_message.msg import Command
 
 # values taken from Erwin's report
-Ca = 230
+Ca = 180
 Cr = 240
-Ct = 240
-Cp = 230
+Ct = 1.25
+Cp = 1
 la = 200
 lr = 75
 
@@ -29,16 +29,27 @@ def sendingFirstMockGoals():
     ebug1 = Position()
     ebug1.x = 1
     ebug1.y = 1
-    ebug1.angle = 40
+    ebug1.angle = 0
 
     ebug2 = Position()
     ebug2.x = 10
     ebug2.y = 15
-    ebug2.angle = 180
+    ebug2.angle = 0
 
+    ebug3 = Position()
+    ebug3.x = 5
+    ebug3.y = 5
+    ebug3.angle = 0
+
+    # ebug4 = Position()
+    # ebug4.x = 20
+    # ebug4.y = 20
+    # ebug4.angle = 0
 
     command.robots_position.append(ebug1)
     command.robots_position.append(ebug2)
+    command.robots_position.append(ebug3)
+    # command.robots_position.append(ebug4)
 
     return command
 
@@ -166,16 +177,21 @@ def morsePotentialFunction(command):
             Fmag = math.sqrt(math.pow(Fx, 2) + math.pow(Fy, 2))
             Fmag_norm = math.sqrt(math.pow(Fx_norm, 2) + math.pow(Fy_norm, 2))
 
-            avg_angle = math.atan2(vec_y, vec_x)
+            avg_angle = math.atan2(vec_y, vec_x)*180/math.pi
 
             linear_speed = Fx_norm*math.cos(ebugs_data[i].angle*math.pi/180.0) + Fy_norm*math.sin(ebugs_data[i].angle*math.pi/180.0)
 
-            linear_speed *= 2000
+            # linear_speed *= 2000
 
-            if linear_speed > 4000:
-                linear_speed = 4000
-            elif linear_speed < -4000:
-                linear_speed = -4000
+            if linear_speed > 2:
+                linear_speed = 2
+            elif linear_speed < -2:
+                linear_speed = -2
+
+            # if linear_speed > 4000:
+            #     linear_speed = 4000
+            # elif linear_speed < -4000:
+            #     linear_speed = -4000
 
             angle_diff = (avg_angle - ebugs_data[i].angle)
 
@@ -186,21 +202,31 @@ def morsePotentialFunction(command):
             
             angle_diff = angle_diff*math.pi/180.0
 
-            avg_orientation = Ct*(angle_diff)*1500
+            avg_orientation = Ct*(angle_diff)#*1500
 
-            if avg_orientation > 1500:
-                avg_orientation = 1500
-            elif avg_orientation < -1500:
-                avg_orientation = -1500
+            if avg_orientation > 1:
+                avg_orientation = 1
+            elif avg_orientation < -1:
+                avg_orientation = -1
+
+            # if avg_orientation > 1500:
+            #     avg_orientation = 1500
+            # elif avg_orientation < -1500:
+            #     avg_orientation = -1500
 
             polar_moment = Cp*(Fy_norm*math.cos(ebugs_data[i].angle*math.pi/180.0) - Fx_norm*math.sin(ebugs_data[i].angle*math.pi/180.0))
 
-            polar_moment *= 1500
+            # polar_moment *= 1500
 
-            if polar_moment > 3000:
-                polar_moment = 3000
-            elif polar_moment < -3000:
-                polar_moment = -3000
+            if polar_moment > 2:
+                polar_moment = 2
+            elif polar_moment < -2:
+                polar_moment = -2
+
+            # if polar_moment > 3000:
+            #     polar_moment = 3000
+            # elif polar_moment < -3000:
+            #     polar_moment = -3000
 
             rotation_speed = polar_moment + avg_orientation
 
@@ -212,8 +238,8 @@ def morsePotentialFunction(command):
             ang_vel_rwheel = right_wheel_speed/wheel_radius
             ang_vel_lwheel = left_wheel_speed/wheel_radius
 
-            ang_vel_rwheel /= 10000.0
-            ang_vel_lwheel /= 10000.0
+            # ang_vel_rwheel /= 10000.0
+            # ang_vel_lwheel /= 10000.0
 
             # then we compute the new position and the new angle of each robot
             delta_x = (wheel_radius/2)*(ang_vel_rwheel*math.cos(ebugs_data[i].angle) + ang_vel_lwheel*math.cos(ebugs_data[i].angle))
@@ -226,7 +252,9 @@ def morsePotentialFunction(command):
 
             # rospy.loginfo(rospy.get_caller_id() + "rws: "+str(right_wheel_speed)+" lws :"+str(left_wheel_speed))
 
-            rospy.loginfo(rospy.get_caller_id()+ "ebug "+str(i)+ ": delta x - "+str(delta_x)+", delta y - "+str(delta_y)+", delta angle - "+str(delta_angle))
+            # rospy.loginfo(rospy.get_caller_id()+ "ebug "+str(i)+ ": delta x - "+str(delta_x)+", delta y - "+str(delta_y)+", delta angle - "+str(delta_angle))
+
+            rospy.loginfo(rospy.get_caller_id() + "ebug"+str(i)+": Fx="+str(Fx_norm)+" Fy="+str(Fy_norm))
 
             tab_delta_x.append(delta_x)
             tab_delta_y.append(delta_y)
