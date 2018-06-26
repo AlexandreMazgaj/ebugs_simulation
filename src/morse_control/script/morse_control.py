@@ -25,7 +25,7 @@ def sendingFirstMockGoals():
 
     command.target_position.x = random.randint(10, 20)
     command.target_position.y = random.randint(10, 20)
-
+    # here we define the starting positions and angles of each ebug
     ebug1 = Position()
     ebug1.x = 1
     ebug1.y = 1
@@ -41,15 +41,28 @@ def sendingFirstMockGoals():
     ebug3.y = 5
     ebug3.angle = 0
 
-    # ebug4 = Position()
-    # ebug4.x = 20
-    # ebug4.y = 20
-    # ebug4.angle = 0
+    ebug4 = Position()
+    ebug4.x = 20
+    ebug4.y = 20
+    ebug4.angle = 0
+
+    ebug5 = Position()
+    ebug5.x = 30
+    ebug5.y = 30
+    ebug5.angle = 0
+
+    # to add an ebug
+    # ebugn = Position()
+    # ebugn.x = à remplir
+    # ebugn.y = à remplir
+    # ebugn.angle = à remplir
 
     command.robots_position.append(ebug1)
     command.robots_position.append(ebug2)
     command.robots_position.append(ebug3)
-    # command.robots_position.append(ebug4)
+    command.robots_position.append(ebug4)
+    command.robots_position.append(ebug5)
+    # command.robots_position.append(ebugn)
 
     return command
 
@@ -102,8 +115,9 @@ def chooseLeader(command):
 
 
 def morsePotentialFunction(command):
-
+    # we start by sorting the ebugs from their distance to the target
     sorted_ebugs = chooseLeader(command)
+    # then we get their data (position and angles)
     ebugs_data = command.robots_position
 
     num_of_ebugs = len(sorted_ebugs)
@@ -112,11 +126,13 @@ def morsePotentialFunction(command):
 
 
     while not rospy.is_shutdown():
+        # those tab are needed to compute the new positions and angles of each ebug
         tab_delta_x = []
         tab_delta_y = []
         tab_delta_angle = []
 
         for i in range(num_of_ebugs):
+            # those computations are necessary for the morse potential function
             vec_x = math.cos(ebugs_data[i].angle*math.pi/180.0)
             vec_y = math.sin(ebugs_data[i].angle*math.pi/180.0)
             Fx = 0
@@ -133,20 +149,19 @@ def morsePotentialFunction(command):
                 
                 xref = ebugs_data[i].x
                 yref = ebugs_data[i].y
-                # we don't put any noise, it is just a demo
                 xcurr = ebugs_data[j].x
                 ycurr = ebugs_data[j].y
-
+                # here we compute the distance between the xref and xcurr
                 di0 = math.fabs(xref - xcurr)
                 di1 = math.fabs((xref-1) - xcurr)
                 di2 = math.fabs((xref+1) - xcurr)
-
+                # here we compute the distance between the yref and ycurr
                 dj0 = math.fabs(yref - ycurr)
                 dj1 = math.fabs((yref - 1) - ycurr)
                 dj2 = math.fabs((yref + 1) - ycurr)
-                # ici on calcul la distance entre l'ebug de référence et l'ebug courant
+                # here we compute the distance between the reference ebug and the current ebug
                 dist = math.sqrt(math.pow(di0, 2) + math.pow(dj0, 2))
-                # ici ce sont aussi des distances pemettant d'avoir la moyenne des gradients
+                # here are the distance necessary to get the mean of the gradient
                 dij1 = math.sqrt(math.pow(di1, 2) + math.pow(dj0, 2))
                 dij2 = math.sqrt(math.pow(di2, 2) + math.pow(dj0, 2))
 
@@ -167,6 +182,8 @@ def morsePotentialFunction(command):
                 # here we compute the force
                 Fx += Uxgrad
                 Fy += Uygrad
+                # those are the forces used for the morse potential function
+                # only use Fx_norm and Fy_norm for future computation
                 Fx_norm += (Uxgrad*dist)/40
                 Fy_norm += (Uygrad*dist)/40
 
@@ -175,12 +192,13 @@ def morsePotentialFunction(command):
 
             # Those two are supposed to be put in a file but I don't really know their use
             Fmag = math.sqrt(math.pow(Fx, 2) + math.pow(Fy, 2))
+            # You can plot Fmag_norm to get a sense of the potential energy between the ebugs
             Fmag_norm = math.sqrt(math.pow(Fx_norm, 2) + math.pow(Fy_norm, 2))
 
             avg_angle = math.atan2(vec_y, vec_x)*180/math.pi
 
             linear_speed = Fx_norm*math.cos(ebugs_data[i].angle*math.pi/180.0) + Fy_norm*math.sin(ebugs_data[i].angle*math.pi/180.0)
-
+            # those factors are used for the real physical robots, don't use them for the simulation
             # linear_speed *= 2000
 
             if linear_speed > 2:
@@ -201,7 +219,7 @@ def morsePotentialFunction(command):
                 angle_diff += 360.0
             
             angle_diff = angle_diff*math.pi/180.0
-
+            # those factors are used for the real physical robots, don't use them for the simulation
             avg_orientation = Ct*(angle_diff)#*1500
 
             if avg_orientation > 1:
@@ -215,7 +233,7 @@ def morsePotentialFunction(command):
             #     avg_orientation = -1500
 
             polar_moment = Cp*(Fy_norm*math.cos(ebugs_data[i].angle*math.pi/180.0) - Fx_norm*math.sin(ebugs_data[i].angle*math.pi/180.0))
-
+            # those factors are used for the real physical robots, don't use them for the simulation
             # polar_moment *= 1500
 
             if polar_moment > 2:
@@ -237,9 +255,6 @@ def morsePotentialFunction(command):
             # here we compute the angular velocity of each wheel
             ang_vel_rwheel = right_wheel_speed/wheel_radius
             ang_vel_lwheel = left_wheel_speed/wheel_radius
-
-            # ang_vel_rwheel /= 10000.0
-            # ang_vel_lwheel /= 10000.0
 
             # then we compute the new position and the new angle of each robot
             delta_x = (wheel_radius/2)*(ang_vel_rwheel*math.cos(ebugs_data[i].angle) + ang_vel_lwheel*math.cos(ebugs_data[i].angle))
@@ -274,7 +289,7 @@ def morsePotentialFunction(command):
         new_pos.target_position.x = command.target_position.x
         new_pos.target_position.y = command.target_position.y
 
-
+        # we finish by sending the positions to the visualization topic
         publisher.publish(new_pos)
 
         rate.sleep()
@@ -284,8 +299,6 @@ def morsePotentialFunction(command):
 
 def setup():
     rospy.init_node('morse_control_node', anonymous=True)
-    # rospy.Subscriber('command_topic', Command,morsePotentialFunction)
-    # rospy.spin()
 
 if __name__ == '__main__':
     publisher = rospy.Publisher('pos_of_ebugs', Command, queue_size=1)
